@@ -206,6 +206,7 @@
                                  "description": "Recharge Wallet",
                                  "image": "https://home.redockto.com/img/logo.png",
                                  "order_id": order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                                 "handler": successCallback,
                                  "prefill": {
                                      "name": getCookie("name"),
                                      "email": getCookie("email"),
@@ -236,9 +237,14 @@
                         alert(error.description)
 
                       }
-                      RazorpayCheckout.on('payment.success', successCallback)
-                      RazorpayCheckout.on('payment.cancel', cancelCallback)
-                      RazorpayCheckout.open(options)
+                      try{
+                        RazorpayCheckout.on('payment.success', successCallback)
+                        RazorpayCheckout.on('payment.cancel', cancelCallback)
+                        RazorpayCheckout.open(options)
+                      } catch {
+                        var rzp1 = new Razorpay(options);
+                        rzp1.open();
+                      }
                     });
                   });
       </script>
