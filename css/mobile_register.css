@@ -1,0 +1,63 @@
+body{
+    font-family: Poppins;
+    background-color: #F6F6F6;
+    color: darkgray;
+}
+
+a{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.cross-image{
+    margin:10px;
+}
+
+.header-text{
+    font-weight: 600;
+    color: black;
+    font-size: 25px;
+    text-align: center;
+}
+
+.mobile-login-text{
+    margin:25px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.login-form{
+    text-align: center;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    margin: 35px;
+    padding:25px;
+}
+
+.login-form button{
+    background-color: #95A3EF;
+    border-radius:50px;
+    color: white;
+    font-weight: 600;
+}
+.otp_container
+{
+  display:none;
+}
+
+
+.black-border{
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding:5px;
+}
+
+.otp-links{
+    color : rgba(63,64,121,1);
+    text-align:center;
+}
+
+.otp-links a{
+    margin-right:10px;
+}

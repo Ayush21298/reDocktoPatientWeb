@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/feedback.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <script src="js/all.min.js"  type="text/javascript">
+
+    </script>
+  </head>
+  <body>
+    <div class="curvy-header">
+      Feedback
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#95A3EF"
+        fill-opacity="1"
+        d="M0,96L48,106.7C96,117,192,139,288,133.3C384,128,480,96,576,101.3C672,107,768,149,864,181.3C960,213,1056,235,1152,213.3C1248,192,1344,128,1392,96L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+      ></path>
+    </svg>
+    <div class="container" >
+      <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+          <div class="card text-center">
+            <h5 style="padding-top:20px">Please provide your Feedback</h5>
+            <div class="stars"></div>
+            <br>
+            <div style="display:flex;flex-direction:row;margin-left:20%;font-size:1.5rem" >
+              <i class="far fa-star  lg feedback_star_no" onclick="give_feedback(1);"></i>
+              <i class="fas fa-star lg feedback_star_yes" style="color:#F2B134" onclick="give_feedback(1);"></i>
+              <i class="far fa-star lg feedback_star_no" onclick="give_feedback(2);"></i>
+              <i class="fas fa-star lg feedback_star_yes" style="color:#F2B134" onclick="give_feedback(2);"></i>
+              <i class="far fa-star lg feedback_star_no" onclick="give_feedback(3);"></i>
+              <i class="fas fa-star lg feedback_star_yes" style="color:#F2B134" onclick="give_feedback(3);"></i>
+              <i class="far fa-star lg feedback_star_no" onclick="give_feedback(4);"></i>
+              <i class="fas fa-star lg feedback_star_yes" style="color:#F2B134" onclick="give_feedback(4);"></i>
+              <i class="far fa-star lg feedback_star_no" onclick="give_feedback(5);"></i>
+              <i class="fas fa-star lg feedback_star_yes" style="color:#F2B134" onclick="give_feedback(5);"></i>
+            </div>
+            <br>
+            <textarea id="feed_comments" style="height:100px;width:80%;margin-left:10%;" placeholder="Please enter your review for the doctor" class="form-control"></textarea>
+            <br>
+            <div class="btn btn-secondary" style="width:50%;margin-left:30%;" onclick="window.location='dashboard.html'">Skip</div>
+            <br>
+            <div class="btn btn-primary" style="width:50%;margin-left:30%;margin-bottom:20px" onclick="submit_feedback()">Submit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/index.js" charset="utf-8"></script>
+    <script>
+    give_feedback();
+    var stars = 5;
+
+    function submit_feedback(){
+
+        // alert($("#feed_comments").val());
+        $.post(counsellor_feedback_url,
+        {
+
+        "phone_no": getCookie("phone_no"),
+        "doctor_phone_no" : getCookie("doctor_phone_call"),
+        "stars": stars,
+        "comments": $("#feed_comments").val()
+        },
+        function(data, status){
+          if(data["status"]!="Failed")
+          {
+            // alert(JSON.stringify(data));
+            alert('Feedback Submitted');
+            window.location = 'dashboard.html';
+          }
+          else
+          {
+            alert("Feedback not submitted")
+          }
+        });
+    }
+
+    function give_feedback(num) {
+
+        stars = num;
+
+        $( ".feedback_star_yes" ).each(function( index ) {
+          if( index < num ){
+            $( this ).show();
+          } else {
+            $( this ).hide();
+          }
+        });
+
+        $( ".feedback_star_no" ).each(function( index ) {
+          if( index < num ){
+            $( this ).hide();
+          } else {
+            $( this ).show();
+          }
+        });
+    }
+    </script>
+  </body>
+</html>

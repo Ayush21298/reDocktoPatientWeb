@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Patient Wallet</title>
+      <link rel="stylesheet" href="css/all.min.css">
+      <script src="js/all.min.js" charset="utf-8"></script>
+      <link rel="stylesheet" href="css/patient_wallet.css">
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+   </head>
+   <body>
+      <div class="curvy-header">
+         reDockto
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+         <path
+            fill="#95A3EF"
+            fill-opacity="1"
+            d="M0,96L48,106.7C96,117,192,139,288,133.3C384,128,480,96,576,101.3C672,107,768,149,864,181.3C960,213,1056,235,1152,213.3C1248,192,1344,128,1392,96L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+            ></path>
+      </svg>
+      <div class="container">
+         <div class="wallet"  style="margin-top:20px">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <img src="icons/png/refresh.png" id="refresh" style="float:right;width:20px">
+                </div>
+              </div>
+               <div class="row">
+                  <div class="col-1" ></div>
+                  <div class="col-10">
+                     <div class="card">
+                        <div class="balance text-center" style="background-color:#F6F6F6" >
+                           <div style="color:grey;font-size:0.9rem;">AVAILABLE BALANCE</div>
+                           <div style="font-weight:bold;margin-bottom:10px;font-size:1.2rem" id="amount">₹ 800.00</div>
+                        </div>
+                        <div class="input-value">
+                           <input type="number" class="form-control" id="recharge_amt_in" placeholder="Enter Amount (₹)" style="margin-top:10px;border-width:0px 0px 1px 0px;padding:10px">
+                           <div class="money-btn" style="padding:10px">
+                              <div class="btn btn-light" id="addthousand" style="color:#5EBA9B;border:1px solid grey;font-weight:bold">+1000</div>
+                              <div class="btn btn-light" id="addfive" style="color:#5EBA9B;border:1px solid grey;font-weight:bold">+500</div>
+                              <div class="btn btn-light" id="addhundred" style="color:#5EBA9B;border:1px solid grey;font-weight:bold">+100</div>
+                           </div>
+                           <div class="btn btn-lg btn-block recharge_in_button" style="color:white;background-color:#F39E35;margin-top:20px;width:90%;margin-left:5%">
+                              Add Money
+                           </div>
+                        </div>
+                        <hr>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="footer">
+               <span class="footer-element active" id="patient_wallet" disabled>
+               <i class="fas fa-credit-card" style="font-size: 15px;"></i><br>
+               Wallet
+               </span>
+
+               <span class="footer-element " id="dashboard">
+               <i class="fas fa-heart footer-icon" style="font-size:15px;"></i><br>
+               Mental Health
+               </span>
+               <span class="footer-element" id="history">
+               <i class="far fa-calendar-alt footer-icon" style="font-size: 15px;"></i><br>
+               History
+               </span>
+               <span class="footer-element " id="patient_profile">
+               <i class="fas fa-user footer-icon" style="font-size: 15px;"></i><br>
+               Profile
+               </span>
+            </div>
+         </div>
+      </div>
+      <br><br><br>
+      <script src="cordova.js" charset="utf-8"></script>
+      <script src="js/jquery-1.11.1.min.js" charset="utf-8"></script>
+      <script src="js/index.js" charset="utf-8"></script>
+      <script src="js/common.js" charset="utf-8"></script>
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      <script>
+      refresh();
+      $('#refresh').on("click",function(){
+        refresh();
+      })
+        function refresh(){
+          $.post(get_wallet_money,
+            {
+              "phone_no":getCookie("phone_no")
+            },function(data,status){
+
+              $('#amount').text("₹ "+data["wallet"])
+          })
+        }
+
+         $('#amount').html("₹ "+getCookie("wallet"))
+         $('#addthousand').on("click",function(){
+           console.log($("#recharge_amt_in").val);
+           if($("#recharge_amt_in").val()==="")
+             $("#recharge_amt_in").val("1000")
+           else
+            $("#recharge_amt_in").val(parseInt($("#recharge_amt_in").val())+1000);
+         })
+         $('#addfive').on("click",function(){
+           if($("#recharge_amt_in").val()==="")
+             $("#recharge_amt_in").val("500")
+           else
+           $("#recharge_amt_in").val(parseInt($("#recharge_amt_in").val())+500);
+         })
+         $('#addhundred').on("click",function(){
+           if($("#recharge_amt_in").val()==="")
+             $("#recharge_amt_in").val("100")
+           else
+           $("#recharge_amt_in").val(parseInt($("#recharge_amt_in").val())+100);
+         })
+         // $(".recharge_in_button").click(function() {
+         //            var temp_amt_1 = parseFloat($("#recharge_amt_in").val());
+         //            if(parseInt(temp_amt_1)<=0){
+         //                alert("Please enter an amount greater that zero");
+         //                return;
+         //            }
+         //            var temp_amt = parseInt(temp_amt_1*100);
+         //
+         //            $.post(payment_create_url,
+         //                {
+         //                    "amount" : temp_amt
+         //                },
+         //                function(data, status){
+         //                    var order_id = data["order_id"]["id"];
+         //
+         //                    var options = {
+         //                                "key": "rzp_test_JyofO2jyHvDBgJ", // Enter the Key ID generated from the Dashboard
+         //                                "amount": temp_amt.toString(), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+         //                                "currency": "INR",
+         //                                "name": "reDockto",
+         //                                "description": "Test Wallet Recharge",
+         //                                "image": "https://home.redockto.com/img/logo.png",
+         //                                "order_id": order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+         //                                "handler": function (response){
+         //                                    // alert(response.razorpay_payment_id);
+         //                                    // alert(response.razorpay_order_id);
+         //                                    // alert(response.razorpay_signature);
+         //                                    $.post(payment_verify_url,
+         //                                    {
+         //                                        "razorpay_payment_id" : response.razorpay_payment_id,
+         //                                        "razorpay_order_id" : response.razorpay_order_id,
+         //                                        "razorpay_signature" : response.razorpay_signature,
+         //                                        "amount" : temp_amt_1,
+         //                                        "phone_no" : getCookie("phone_no")
+         //                                    },
+         //                                    function(data, status){
+         //                                        if(data["status"] == "success"){
+         //                                            alert("Recharge Successfull");
+         //                                            setCookie("wallet", (parseFloat(getCookie("wallet")) + temp_amt_1).toString(), 30);
+         //                                            window.location = 'profile.html';
+         //                                        } else if(data["status"] == "failed"){
+         //                                            alert("Recharge Failed");
+         //                                        }
+         //                                    });
+         //                                },
+         //                                "prefill": {
+         //                                    "name": getCookie("name"),
+         //                                    "email": getCookie("email"),
+         //                                    "contact": getCookie("phone_no")
+         //                                },
+         //                                "notes": {
+         //                                    "address": "IIT Delhi"
+         //                                },
+         //                                "theme": {
+         //                                    "color": "#528FF0"
+         //                                }
+         //                            };
+         //                            var rzp1 = new Razorpay(options);
+         //                            rzp1.open();
+         //                            // document.getElementById('rzp-button1').onclick = function(e){
+         //                            //     rzp1.open();;
+         //                            //     e.preventDefault();
+         //                            // }
+         //
+         //
+         //                });
+         //
+         //        });
+
+
+
+         $(".recharge_in_button").click(function() {
+
+             var temp_amt_1 = parseFloat($("#recharge_amt_in").val());
+             if(parseInt(temp_amt_1)<=0||temp_amt_1==""){
+                 alert("Please enter an amount greater that zero");
+                 return;
+             }
+             var temp_amt = parseInt(temp_amt_1*100);
+             $.post(payment_create_url,
+                 {
+                     "amount" : temp_amt
+                 },
+                 function(data, status){
+                     var order_id = data["order_id"]["id"];
+                     var options = {
+                                 "key": "rzp_test_9WXju2lweakfWC", // Enter the Key ID generated from the Dashboard
+                                 "amount": temp_amt.toString(), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                 "currency": "INR",
+                                 "name": "reDockto",
+                                 "description": "Recharge Wallet",
+                                 "image": "https://home.redockto.com/img/logo.png",
+                                 "order_id": order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                                 "prefill": {
+                                     "name": getCookie("name"),
+                                     "email": getCookie("email"),
+                                     "contact": getCookie("phone_no")
+                                 },
+                                 "notes": {
+                                     "address": "IIT Delhi"
+                                 },
+                                 "theme": {
+                                     "color": "#528FF0"
+                                 }
+                             };
+                     var successCallback = function(success) {
+                         alert("Recharge Successfull");
+                         setCookie("wallet", (parseFloat(getCookie("wallet")) + temp_amt_1).toString(), 30);
+                       $.post(payment_verify_url,
+                       {
+                           "razorpay_payment_id" : success.razorpay_payment_id,
+                           "razorpay_order_id" : success.razorpay_order_id,
+                           "razorpay_signature" : success.razorpay_signature,
+                           "amount" : temp_amt_1,
+                           "phone_no" : getCookie("phone_no")
+                       }),
+                       window.location = 'patient_wallet.html';
+                      }
+                      var cancelCallback = function(error)
+                      {
+                        alert(error.description)
+
+                      }
+                      RazorpayCheckout.on('payment.success', successCallback)
+                      RazorpayCheckout.on('payment.cancel', cancelCallback)
+                      RazorpayCheckout.open(options)
+                    });
+                  });
+      </script>
+   </body>
+</html>

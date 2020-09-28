@@ -1,0 +1,78 @@
+body {
+    font-family: Poppins;
+    background-color: #f3f3f3;
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+  
+  
+  
+  .curvy-header {
+    background-color: #95a3ef;
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    height: 50px;
+  }
+  
+  .search-bar{
+      height: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 4px 0 lightgray, 0 6px 20px 0 lightgray;
+  }
+  
+  .library-title-text{
+      font-size:22px;
+      color: grey;
+  }
+  
+  .library-title-text span{
+      margin-right: 15px;
+  }
+  
+  .library-title-text .active{
+      color: #95a3ef;
+  }
+
+  .cover{
+      border-radius: 10px;
+      margin-top:15px;
+  }
+  
+  
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: lightgray;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  
+  .footer-element{
+    font-size: 10px;
+    margin: 10px 14px;
+    display:inline-block;
+    text-align: center;
+  }
+  
+  .active{
+    color: #95a3ef;
+  } 
+  
+  @media only screen and (max-width: 374px) {
+    .footer-element{
+      font-size: 10px;
+      margin: 10px;
+    }
+}
+  
+  

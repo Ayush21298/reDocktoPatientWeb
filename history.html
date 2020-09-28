@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+
+    <script src="js/all.min.js" charset="utf-8"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="./css/history.css" />
+
+    <title>Redocto</title>
+  </head>
+  <body>
+    <div class="curvy-header">
+      reDockto
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#95A3EF"
+        fill-opacity="1"
+        d="M0,96L48,106.7C96,117,192,139,288,133.3C384,128,480,96,576,101.3C672,107,768,149,864,181.3C960,213,1056,235,1152,213.3C1248,192,1344,128,1392,96L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+      ></path>
+    </svg>
+
+    <div class="container" id="history">
+    </div>
+
+
+    <br /><br /><br>
+    <div class="footer">
+      <span class="footer-element" id="patient_wallet" disabled>
+          <i class="fas fa-credit-card" style="font-size: 15px;"></i><br>
+          Wallet
+      </span>
+      <span class="footer-element" id="dashboard">
+        <i class="fas fa-heart footer-icon" style="font-size:15px;"></i><br>
+        Mental Health
+      </span>
+      <span class="footer-element active" id="history">
+        <i class="far fa-calendar-alt footer-icon" style="font-size: 15px;"></i><br>
+        History
+      </span>
+      <span class="footer-element " id="patient_profile">
+        <i class="fas fa-user footer-icon" style="font-size: 15px;"></i><br>
+          Profile
+      </span>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-1.11.1.min.js" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="cordova.js" charset="utf-8"></script>
+    <script src="js/index.js" charset="utf-8"></script>
+    <script src="js/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    getHistory();
+    $(document).on("click","#refresh",function(){
+      getHistory();
+    })
+
+    function getHistory(){
+        $.get(patient_history_url,{
+        phone_no:getCookie('phone_no')
+      },function(data,status){
+        let temp="<h2 class='text-center'>Calling History <span style='margin-left:10px' id='refresh'><img src='icons/png/refresh.png' width='20px'></span></h2>"
+        console.log(data)
+        for(let i=data.length-1;i>=0;i--)
+        {
+          if(data[i]["start_time"]!=null&&data[i]["end_time"]!=null)
+          {
+            let startminute=parseInt(data[i]['start_time'].split(':')[1])
+            let endminute=parseInt(data[i]['end_time'].split(':')[1])
+            let startsecond=parseInt(data[i]['start_time'].split(':')[2].split('.')[0])
+            let endsecond=parseInt(data[i]['end_time'].split(':')[2].split('.')[0])
+            let minutes=endminute-startminute
+            let seconds=endsecond-startsecond
+            let prescription=data[i]["prescription"];
+            if(prescription==null)
+            {
+              prescription="No Notes Given"
+            }
+            if(seconds<0)
+            {
+              minutes-=1
+              seconds+=60
+            }
+            let duration=''
+            if(minutes!=0)
+            {
+              duration+=minutes+' minutes '
+            }
+            duration+=seconds+' seconds'
+            temp+=`
+            <div class="row historyelement" style="margin-top:10px;font-size:10px">
+              <div class="col">
+                <div class="card">
+                  <div class="container">
+                    <div class="row card-element">
+                      <div class="col-6 heading ">
+                        Doctor Name
+                      </div>
+                      <div class="col-6">
+                        ${data[i]['doctor_name']}
+                      </div>
+                    </div>
+                    <div class="row card-element">
+                      <div class="col-6 heading" >
+                        Date
+                      </div>
+                      <div class="col-6">
+                        ${data[i]['date']}
+                      </div>
+                    </div>
+                    <div class="row card-element">
+                      <div class="col-6 heading">
+                        Call Duration
+                      </div>
+                      <div class="col-6">
+                        ${duration}
+                      </div>
+                    </div>
+                    <div class="row card-element">
+                      <div class="col heading">
+                        Notes
+                      </div>
+                    </div>
+                    <div class="row card-element">
+                      <div class="col">
+                        ${prescription}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`
+          }
+        }
+        $('#history').html(temp)
+      })
+    }
+
+
+    </script>
+  </body>
+</html>

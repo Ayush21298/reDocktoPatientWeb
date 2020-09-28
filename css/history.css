@@ -1,0 +1,118 @@
+body {
+    font-family: Poppins;
+    background-color: #f9f9f9;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  .curvy-header {
+    background-color: #95a3ef;
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    height: 50px;
+  }
+  .historyelement *
+  {
+    padding:2px;
+    font-size:16px;
+    text-align: center;
+  }
+  .heading{
+    font-weight:bold;
+  }
+
+
+  .history-doctor-card{
+    border-radius: 15px;
+    padding:20px 0px 10px 5px ;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+  }
+
+  .history-doctor-image img{
+    height: 75px;
+    width: 75px;
+  }
+
+  .history-doctor-card-title{
+    font-weight: 500;
+  }
+
+  .divider{
+    margin:1px;
+  }
+
+  .history-doctor-card-details{
+    color: grey;
+    font-size: 12px;
+    border : 1px solid lightgray;
+    border-radius: 5px;
+    margin:15px 35px 0 0 ;
+    padding:4px;
+  }
+
+  .history-doctor-card-footer{
+      font-size: 12px;
+      margin-bottom: 15px;
+  }
+
+  .doc-status{
+      font-weight: 450;
+      margin-right: 20px;
+  }
+
+  .closed{
+    color: red;
+  }
+
+  .open{
+      color: limegreen;
+  }
+  .chat-icon{
+      position: fixed;
+      right:25px;
+      padding:10px;
+      border:1px solid lightgrey;
+      border-radius: 50%;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: lightgray;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+
+  .footer-element{
+    font-size: 10px;
+    margin: 10px 14px;
+    display:inline-block;
+    text-align: center;
+  }
+
+  .active{
+    color: #95a3ef;
+  }
+
+  @media only screen and (max-width: 374px) {
+    .footer-element{
+      font-size: 10px;
+      margin: 10px;
+    }
+  }
+  .col .card{
+    width:80%;
+    margin-left:10%;
+    font-size:0.8rem;
+  }

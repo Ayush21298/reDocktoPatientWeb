@@ -1,0 +1,78 @@
+body {
+    font-family: Poppins;
+    background-color: #f9f9f9;
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+  
+  .curvy-header {
+    background-color: #95a3ef;
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    height: 50px;
+  }
+  
+  .search-bar{
+      height: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 4px 0 lightgray, 0 6px 20px 0 lightgray;
+  }
+  
+
+  .therapy-doctor-card{
+    border-radius: 15px;
+    padding:20px 0px 10px 5px ;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+  }
+
+  
+
+  .therapy-doctor-image img{
+    height: 75px;
+    width: 75px;
+  }
+
+  .therapy-doctor-card-image-text{
+    font-size: 9px;
+    text-align: center;
+    font-weight: 450;
+    color:grey ;
+  }
+
+  .black{
+    color: #000;
+  }
+
+  .therapy-doctor-card-title{
+    font-weight: 500;
+  }
+
+  .divider{
+    margin:1px;
+  }
+
+  .therapy-doctor-card-details{
+    color: grey;
+    font-size: 12px;
+    border : 1px solid lightgray;
+    border-radius: 5px;
+    margin:15px 35px 0 0 ;
+    padding:4px;
+  }
+
+  .right{
+    padding:2px 18px;
+    border-radius: 15px;
+    float: right;
+    margin-right: 18px;
+  }
+  
+ 
+ 
+  
+  

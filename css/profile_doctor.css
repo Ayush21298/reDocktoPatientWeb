@@ -1,0 +1,62 @@
+body {
+  font-family: Poppins;
+  background-color: #f3f3f3;
+}
+
+.card
+{
+  border-radius:20px;
+}
+
+.balance *{
+  padding:10px;
+}
+.balance .heading
+{
+  font-weight: bold;
+  font-size:1.3rem;
+}
+.balance .money
+{
+  font-size:2rem;
+}
+
+.txn-history {
+	text-align: center;
+  font-size:1.2rem;
+  margin-top:10px;
+}
+
+.txn-list {
+	background-color: #95A3EF;
+	padding: 12px 10px;
+	color: #fff;
+	font-size: 14px;
+	margin: 7px 0;
+  margin-bottom:10px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: lightgray;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.footer-element{
+  font-size: 10px;
+  margin: 10px 14px;
+  display:inline-block;
+  text-align: center;
+}
+
+.active{
+  color: #95a3ef;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+
+
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <script src="js/all.min.js" charset="utf-8"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="./css/dashboard.css">
+
+    <title>Redocto</title>
+  </head>
+  <body>
+    <div class="curvy-header">
+      <span id="back" style="margin-right:15px"><i class="fas fa-arrow-left"></i></span>About Us
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#95A3EF"
+        fill-opacity="1"
+        d="M0,96L48,106.7C96,117,192,139,288,133.3C384,128,480,96,576,101.3C672,107,768,149,864,181.3C960,213,1056,235,1152,213.3C1248,192,1344,128,1392,96L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+      ></path>
+    </svg>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <h1 style="font-weight:bold">reDockto</h1>
+          <h4>With You, Every Step Of The Way</h4>
+          <div style="">
+          Our mission is to enhance potential of lives via enabling people to achieve their full potential<br>
+          </div>
+          <br><br>
+          <div id="website">
+            <span style="color:blue;">Visit reDockto</span>
+            <i class="fas fa-location-arrow end-arrow" style="font-size: 10px;color:grey;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-1.11.1.min.js" charset="utf-8"></script>
+    <script src="cordova.js" charset="utf-8"></script>
+    <script src="js/common.js" charset="utf-8"></script>
+    <script src="js/index.js" charset="utf-8"></script>
+    <script>
+      $('#back').on("click",function(){
+        window.location="patient_profile.html"
+      })
+      $('#website').on("click",function(){
+        window.location="https://home.redockto.com/";
+      })
+    </script>
+    <script src="js/jquery-1.11.1.min.js" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+
+
+
+      <script type="text/javascript">
+          app.initialize();
+          // alert(getCookie("phone_no"));
+      </script>
+  </body>
+</html>

@@ -1,0 +1,88 @@
+
+body
+{
+  background-color: #f3f3f3;
+}
+
+.profile_element
+{
+  padding:20px;
+}
+
+.profile_element .text
+{
+  color:grey;
+  padding-left: 20px;
+}
+.doc-name {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+
+.doc-details {
+  font-size: 12px;
+  color: grey;
+}
+.content-card {
+  margin-top:50px;
+  border-radius: 15px;
+  padding: 12px;
+}
+
+
+
+.doc-stars
+{
+  margin-top:20px;
+  padding:5px;
+  background-color:blue;
+  width:97px;
+  border-radius: 10px;
+  color:white;
+  font-weight: bold;
+}
+
+.personal-info
+{
+  margin-top:30px;
+}
+
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: lightgray;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.footer-element{
+  font-size: 10px;
+  margin: 10px 14px;
+  display:inline-block;
+  text-align: center;
+}
+.footer-element img{
+  width:15px;
+  color:grey;
+}
+
+.active{
+  color: #95a3ef;
+}
+
+@media only screen and (max-width: 374px) {
+  .footer-element{
+    font-size: 10px;
+    margin: 10px;
+  }
+}

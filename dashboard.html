@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *" />
+
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <script src="js/all.min.js" charset="utf-8"></script>
+
+    <!-- Custom CSS -->
+
+
+    <title>Redocto</title>
+  </head>
+  <body>
+    <div class="curvy-header">
+      reDockto
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#95A3EF"
+        fill-opacity="1"
+        d="M0,96L48,106.7C96,117,192,139,288,133.3C384,128,480,96,576,101.3C672,107,768,149,864,181.3C960,213,1056,235,1152,213.3C1248,192,1344,128,1392,96L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+      ></path>
+    </svg>
+    <div class="container">
+      <div class="dashboard-text">
+        <div class="heading" style="display:flex;flex-direction:row;justify-content:space-around">
+          <h2 style="margin-right:30px;">Consultation</h2>
+          <div class="row" style="float:right" onclick="load_all()">
+            <img src="icons/png/refresh.png" style="width:16px;height:18px;margin-top:12px" >
+          </div>
+        </div>
+      </div>
+      <div class="row vertical-scrolling">
+        <div class="container" id="main_content_counsellor">
+        </div>
+      </div>
+    </div>
+    <br><br><br>
+
+    <div class="footer">
+      <span class="footer-element" id="patient_wallet" disabled>
+          <i class="fas fa-credit-card" style="font-size: 15px;"></i><br>
+          Wallet
+      </span>
+
+      <span class="footer-element active" id="dashboard">
+        <i class="fas fa-heart footer-icon" style="font-size:15px;"></i><br>
+        Mental Health
+      </span>
+      <span class="footer-element" id="history">
+        <i class="far fa-calendar-alt footer-icon" style="font-size: 15px;"></i><br>
+        History
+      </span>
+      <span class="footer-element " id="patient_profile">
+        <i class="fas fa-user footer-icon" style="font-size: 15px;"></i><br>
+          Profile
+      </span>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+
+    <script src="js/index.js" charset="utf-8"></script>
+    <script src="cordova.js" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="js/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      load_all();
+
+    });
+    function update_video_call_details(busy){
+      if(busy==true)
+      {
+        alert("Doctor is busy try after some time");
+        return;
+      }
+        if(getCookie("phone_no") == ""){
+            alert("Please Sign Up First");
+            window.location="patient_login.html";
+        } else if(parseFloat(getCookie("wallet")) <= 100.0) {
+            alert("Minumum Wallet balance 100.0 required");
+            window.location="patient_wallet.html";
+        }
+        $.post(update_call_details_url,
+        {
+            "user_phone_call" : getCookie("user_phone_call"),
+            "doctor_phone_call" : getCookie("doctor_phone_call"),
+            "call_type" : "video"
+        },
+        function(data, status){
+            setCookie("call_id",data["id"]);
+            setCookie("call_type","video");
+            window.location='agora_user.html';
+        });
+    }
+
+    function update_audio_call_details(busy){
+      if(busy==true)
+      {
+        alert("Doctor is busy try after some time");
+        return;
+      }
+        if(getCookie("phone_no") == ""){
+            alert("Please Sign Up First");
+            window.location="patient_login.html";
+        } else if(parseFloat(getCookie("wallet")) <= 100.0) {
+            alert("Minumum Wallet balance 100.0 required");
+            window.location="patient_wallet.html";
+        }
+        $.post(update_call_details_url,
+        {
+            "user_phone_call" : getCookie("user_phone_call"),
+            "doctor_phone_call" : getCookie("doctor_phone_call"),
+            "call_type" : "audio"
+        },
+        function(data, status){
+            setCookie("call_id",data["id"]);
+            setCookie("call_type","audio");
+            window.location='agora_user.html';
+        });
+    }
+    var phoneArr=[];
+
+    function load_all(){
+
+      console.log("load all called")
+        temp_text = ``;
+
+        $("#main_content_counsellor").html(temp_text);
+        $.get(doctor_get_url,
+        {},
+        function(data, status){
+          var temp=``
+          let color=''
+          for(let i=0;i<data.length;i++)
+          {
+            phoneArr.push(data[i]['phone_no'])
+            let busy="Available";
+            let src=base_url;
+            let rating=4.6
+            switch(i){
+              case 1:{
+                rating=4.5;
+                break;
+                }
+              case 2:{
+                rating=4.4;
+                break;
+              }
+              case 3:{
+                rating=4.7;
+                break;
+              }
+              case 4:{
+                rating=4.6;
+              }
+            }
+            color="green"
+            if(data[i]["busy"]===true)
+            {
+              busy="Busy";
+              color="red";
+            }
+            temp+=`<div class="row" onclick="setCookie('showprofile',${data[i]["phone_no"]});window.location='doctor_profile.html'">
+                <div class="col">
+                  <div class="card" style="display:flex;flex-direction:row;padding:5px;margin-top:10px;height:120px;border-radius:10px">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-3"><img id='img${i}' src="img/doc.jpg" height="70px" width="70px" style="border-radius:50%;margin-top:10px"></div>
+                        <div class="col-6">
+                          <div style="display:flex;flex-direction:column;font-size:0.7rem">
+                            <div style="font-weight:bold;font-size:1rem">${data[i]["username"]}</div>
+                            <div >${data[i]["qualification"]}</div>
+                            <div> ₹ <span style="margin-left:4px">${data[i]["rate"]}/session</span></div>
+                            <div><i class="fa fa-star" style="color:#e1ad01"></i>${data[i]["rating"]}</div>
+                            <div style='margin-bottom:5px'>${data[i]["experience"]} Years</div>
+                          </div>
+                        </div>
+                        <div class="col-3" style="margin-left:-15px">
+                          <div style="display:flex;flex-direction:row;margin-top:20px">
+                            <div onclick='event.stopPropagation();setCookie("doctor_rate",${data[i]["rate"]});setCookie("user_phone_call",getCookie("phone_no")); setCookie("doctor_phone_call",${data[i]["phone_no"]}); update_audio_call_details(${data[i]["busy"]});'><img src="icons/png/phone.png" width="32px" ></img>
+                            </div>
+                            <div onclick='event.stopPropagation();setCookie("doctor_rate",${data[i]["rate"]});setCookie("user_phone_call",getCookie("phone_no")); setCookie("doctor_phone_call",${data[i]["phone_no"]}); update_video_call_details(${data[i]["busy"]});'>
+                              <img src="icons/png/hangouts-meet.png" width="32px" style="margin-left:15px"></img>
+                            </div>
+                          </div>
+                          <div style="margin-top:20px;border:1px solid ${color};width:fit-content;padding:2px;border-radius:5px;font-size:0.7rem;">${busy}</div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>`
+          }
+          $("#main_content_counsellor").html($("#main_content_counsellor").html() + temp);
+          getImages();
+          $(document).on("click",".showdetails",function(){
+            window.location="doctor_profile.html"
+          })
+        });
+    }
+    function getImages()
+    {
+      phoneArr.forEach((item, i) => {
+        $.post(get_pic,{
+          phone_no:item
+        },function(data,status){
+          if(data['pic']!="")
+          {
+            $('#img'+i).attr("src",base_url+data["pic"])
+          }
+        })
+
+      });
+    }
+    </script>
+  </body>
+</html>

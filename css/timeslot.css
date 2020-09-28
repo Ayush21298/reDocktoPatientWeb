@@ -1,0 +1,109 @@
+body {
+  font-family: Poppins;
+  background-color: #f9f9f9;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.curvy-header {
+  background-color: #95a3ef;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  height: 50px;
+}
+
+.back{
+  margin-right: 10px;
+}
+
+.content-card {
+ 
+  border-radius: 15px;
+  padding: 12px;
+}
+
+.doc-name {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.doc-details {
+  font-size: 12px;
+  color: grey;
+}
+
+.date-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.arrow {
+  margin: 0 30px;
+}
+
+.time-section {
+  background-color: #f9f9f9;
+  margin-bottom: 45px;
+}
+
+.morning:before {
+  content: "Morning";
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background-image: linear-gradient(
+    to right,
+    gold, pink
+  );
+  padding: 0 20px;
+  border-radius: 15px;
+}
+
+.afternoon:before {
+  content: "Afternoon";
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background-image: linear-gradient(
+    to right,
+     lightblue, lightgreen
+  );
+  padding: 0 20px;
+  border-radius: 15px;
+}
+
+.evening:before {
+  content: "Evening and Night";
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background-image: linear-gradient(
+    to right,
+    #95a3ef, lightyellow
+    
+  );
+
+  padding: 0 20px;
+  border-radius: 15px;
+}
+
+.timings {
+  margin: 30px 15px 15px 8px;
+}
+
+.slot {
+  margin: 15px 10px;
+}
+
+.btn{
+    border-radius: 15px;
+    width: 50%;
+    padding:12px;
+}

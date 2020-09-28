@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mobile_register.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <script src="js/all.min.js" charset="utf-8"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="./css/mobile-login.css">
+
+    <title>Redocto</title>
+  </head>
+  <body>
+      <div class="cross-image">
+        <a href="./index.html"><i class='fas fa-times' style='font-size:18px;color:black'></i></a>
+      </div>
+      <div class="sign_in_container">
+        <div class="login-image">
+            <img src="img/login-img.PNG">
+        </div>
+
+        <div class="mobile-login-text">
+            Enter your Registered mobile number and we will send you the otp
+        </div>
+
+        <div class="login-form">
+          <div><input class="black-border" name="phone_in" id="phone_in"  type="number" placeholder="Enter Phone Number"></div>
+          <div><input class="black-border" name="password_in" id="password_in"   type="password" placeholder="Enter Password"></div>
+          <div><input class="black-border" name="password_in2" id="password_in2"   type="password" placeholder="Confirm Password"></div>
+          <div><button type="button" class="btn btn-lg btn-block register_button" style="background-color:#5EAF61" >Get OTP</button></div>
+          <br>
+          <div>Already a member ?</div>
+          <button type="button" class="btn btn-lg btn-block"  onclick="window.location='patient_login.html'">Sign in</button>
+        </div>
+      </div>
+      <div class="otp_container">
+        <div class="header-text">
+          Enter OTP
+        </div>
+
+        <div class="mobile-login-text">
+          We have sent you an SMS with a four digit verification code
+        </div>
+
+        <div class="login-form">
+          <input type="number" class="black-border" id="otp_in" maxlength="6" >
+          <br /><br />
+          <button type="button" class="btn btn-lg btn-block otp_in_button">Submit</button>
+        </div>
+
+        <div class="mobile-login-text">
+          Did not receive the code ?
+        </div>
+
+        <div class="otp-links">
+          <div id="resend_otp">Re send</div>
+        </div>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-1.11.1.min.js" charset="utf-8"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        function reload(){
+            if(getCookie("phone_no") != "") {
+                window.location = 'profile.html';
+            }
+
+        }
+        $(document).ready(function() {
+            var temp_val = $("#doctor_user_in").val();
+           if (temp_val == "doctor") {
+            $(".doctor_choosen").show();
+           } else {
+            $(".doctor_choosen").hide();
+           }
+        });
+        $('#doctor_user_in').on('selectmenuchange',function () {
+           var temp_val = $(this).val();
+           if (temp_val == "doctor") {
+            $(".doctor_choosen").show();
+           } else {
+            $(".doctor_choosen").hide();
+           }
+        });
+        $(".register_button").click(function() {
+            var temp_phone = $("#phone_in").val();
+            var temp_pass = $("#password_in").val();
+            var temp_pass2 = $("#password_in2").val();
+            var temp_doctor_user = $("#doctor_user_in").val();
+            var temp_experience = $("#experience_in").val();
+            var temp_rate = $("#rate_in").val();
+
+            if(temp_pass == temp_pass2){
+                $(".sign_in_container").hide();
+                $(".otp_container").show();
+                $.post(user_send_otp_url,
+                {
+                "phone_no": temp_phone
+                },
+                function(data, status){
+                    if(data["status"] != "Failed"){
+                        alert("OTP sent to mobile no.");
+                    } else {
+                        alert("Server Error");
+                    }
+                });
+              } else {
+                alert("Password don't Match");
+                $("#password_in").val("");
+                $("#password_in2").val("")
+            }
+        });
+        $("#resend_otp").click(function(){
+            var temp_phone = $("#phone_in").val();
+            $.post(user_send_otp_url,
+            {
+            "phone_no": temp_phone
+            },
+            function(data, status){
+                if(data["status"] != "Failed"){
+                    alert("OTP sent to mobile no.");
+                } else {
+                    alert("Server Error");
+                }
+            });
+        });
+        $(".otp_in_button").click(function() {
+            var temp_phone = $("#phone_in").val();
+            var temp_pass = $("#password_in").val();
+            var temp_pass2 = $("#password_in2").val();
+            var temp_doctor_user = $("#doctor_user_in").val();
+            var temp_experience = $("#experience_in").val();
+            var temp_rate = $("#rate_in").val();
+            var temp_otp = $("#otp_in").val();
+
+            $.post(user_get_otp_url,
+            {
+            "phone_no": temp_phone
+            },
+            function(data, status){
+              console.log(data);
+                if(data["status"] != "Failed"){
+                    var get_otp_1 = data["otp"];
+
+                    if(temp_otp == get_otp_1){
+                        $.post(user_register_url,
+                        {
+                        "phone_no": temp_phone,
+                        "password": temp_pass,
+                        "doctor": "",
+                        },
+                        function(data, status){
+                            if(data["status"] != "Failed"){
+                                setCookie("phone_no", temp_phone, 30);
+                                setCookie("wallet",0,30);
+                                alert("Registrartion Successful");
+                                window.location = 'dashboard.html';
+                            } else {
+                                alert(data["response"]);
+                            }
+                        });
+                    } else {
+                        alert("Wrong OTP");
+                    }
+
+                } else {
+                    alert("Server Error");
+                }
+            });
+
+        });
+        $(".sign_in_button").click(function() {
+            window.location = 'sign_in.html';
+        });
+    </script>
+
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+
+      <script src="js/common.js" charset="utf-8"></script>
+  </body>
+</html>

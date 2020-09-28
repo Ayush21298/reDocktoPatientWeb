@@ -1,0 +1,30 @@
+body{
+    font-family: Poppins;
+    background-color: #95A3EF;
+    color: white;
+}
+
+a{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.title-text{
+    font-weight: 800;
+    font-size: 45px;
+    margin-top:65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-ellipsis{
+    height:10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    margin: 0 0 0 0;
+    padding: 0;
+    letter-spacing: 5px;
+}

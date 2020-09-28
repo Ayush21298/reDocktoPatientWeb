@@ -1,0 +1,193 @@
+body {
+  font-family: Poppins;
+  background-color: #f3f3f3;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+
+
+.curvy-header {
+  background-color: #95a3ef;
+  color: white;
+  font-size: 20px;
+  padding: 30px;
+  height: 50px;
+}
+
+
+.horizontal-scrolling {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.horizontal-scrolling .banner-card {
+  border-radius: 15px;
+  flex: 0 0 auto;
+  background-color: #aeb9f3;
+  color: white;
+}
+
+.search-bar{
+    height: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px 0 lightgray, 0 6px 20px 0 lightgray;
+}
+
+.dashboard-title-text{
+    font-size:24px;
+    color: grey;
+}
+
+.dashboard-title-text span{
+    margin-right: 15px;
+}
+
+.dashboard-title-text .active{
+    color: #95a3ef;
+}
+
+.dashboard-text{
+    font-size: 14px;
+    color: rgba(63,64,121,1);
+}
+
+.dashboard-text .right{
+    color:#1877f2 ;
+    position: absolute;
+    right:15px;
+}
+
+.card-body{
+  padding:10px;
+}
+
+.col-5{
+  margin-top:40px;
+  position: relative;
+
+}
+
+
+.dashboard-doctor-card{
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 4px 0 lightgray, 0 6px 20px 0 lightgray;
+    margin-bottom:10px;
+}
+
+.dashboard-doctor-card-image{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.dashboard-doctor-card-image img{
+  position: relative;
+  top:-15px;
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
+}
+
+.dashboard-doctor-card-name{
+  margin-top: 0;
+  font-size: 11px;
+  color: rgba(63,64,121,1);
+  font-weight: 600;
+  height:5px;
+  margin-bottom:30px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.dashboard-doctor-card-text{
+  font-size: 10px;
+  color: grey;
+  margin-bottom: 10px;
+  margin-top: 0;
+  display:flex;
+  justify-content:space-between;
+}
+.btn-container
+{
+  align-items: center;
+}
+
+
+.videocall-btn
+{
+  background-color:green;
+  width:fit-content;
+  text-align:center;
+  font-size:0.9rem;
+  margin-top:10px;
+  height:fit-content;
+  margin-left:15%;
+  color:white;
+  padding:4px;
+  padding-left:6px;
+  padding-right:6px;
+  border-radius:5px;
+  font-weight:normal !important;
+}
+
+
+.call-btn
+{
+  background-color:green;
+  width:fit-content;
+  text-align:center;
+  font-size:0.9rem;
+  margin-top:10px;
+  height:fit-content;
+  margin-left:30%;
+  color:white;
+  padding:4px;
+  border-radius:5px;
+  padding-left:6px;
+  padding-right:6px;
+  font-weight:normal !important;
+}
+
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: lightgray;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.footer-element{
+  font-size: 10px;
+  margin: 10px 14px;
+  display:inline-block;
+  text-align: center;
+}
+
+.active{
+  color: #95a3ef;
+}
+
+@media only screen and (max-width: 359px) {
+  .footer-element{
+    font-size: 10px;
+    margin: 10px;
+  }
+  .dashboard-doctor-card-name{
+    margin-bottom: 2rem;
+  }
+
+}

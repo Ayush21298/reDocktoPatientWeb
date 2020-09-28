@@ -1,0 +1,63 @@
+body{
+    font-family: Poppins;
+}
+
+a{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.onboarding-img{
+    display: flex;
+    justify-content: center;
+    margin-top:20%;
+}
+
+.onboarding-img img{
+    max-width: 100%;
+}
+
+.onboarding-text-title{
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.onboarding-text{
+    text-align: center;
+    font-size: 16px;
+}
+
+.onboarding-indicators{
+    margin-top: 50px;
+    text-align: center;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 5px;
+    border: 1px solid #95A3EF;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+.active-dot{
+    background-color: #95A3EF;
+}
+
+.onboarding-button{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.onboarding-button button{
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #95A3EF;
+    color: white;
+    padding : 8px 25px 8px 25px;
+}

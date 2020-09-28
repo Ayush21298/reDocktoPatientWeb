@@ -1,0 +1,73 @@
+body {
+  font-family: Poppins;
+  background-color: #f3f3f3;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.curvy-header {
+  background-color: #95a3ef;
+  color: white;
+  font-size: 20px;
+  padding: 30px;
+  height: 50px;
+}
+
+.heading
+{
+  font-weight:bold;
+  font-size: 1.2rem;
+}
+
+
+.card-body{
+  padding:10px;
+}
+
+.col-5{
+  margin-top:40px;
+  position: relative;
+}
+.card-element{
+  padding:10px;
+}
+
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: lightgray;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.footer-element{
+  font-size: 10px;
+  margin: 10px 14px;
+  display:inline-block;
+  text-align: center;
+}
+
+.active{
+  color: #95a3ef;
+}
+
+@media only screen and (max-width: 359px) {
+  .footer-element{
+    font-size: 10px;
+    margin: 10px;
+  }
+  .dashboard-doctor-card-name{
+    margin-bottom: 2rem;
+  }
+
+}

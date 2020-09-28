@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/all.min.css">
+    <script src="js/all.min.js" charset="utf-8"></script>
+    <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" type="text/css" href="./css/timeslot.css" /> -->
+    <style>
+    pre{
+      font-family: 'Poppins', sans-serif;
+    }
+    </style>
+    <link rel="stylesheet" href="css/doctor_profile.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Doctor Profile</title>
+  </head>
+  <body>
+    <div class="cross-image" style="position:absolute;top:30px;left:10px">
+      <a href="./dashboard.html"><i class='fas fa-times' style='font-size:18px;color:black'></i></a>
+    </div>
+    <div class="container">
+      <div class="card content-card">
+        <div class="profile-section">
+          <div class="row">
+            <div class="col-3" style="margin-top:30px">
+              <center>
+                <img src="./img/doc.jpg" id="pic" class="rounded-circle img-fluid" />
+              </center>
+            </div>
+            <div class="col-9 personal-info">
+              <div class="doc-name" id="name"></div>
+              <div class="doc-details" id="qualification"></div>
+              <div class="doc-stars">
+                <img src="icons/png/star.png" width="18px">
+                <span style="margin-top:10px;" id="ratingchange"></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile_element">
+            <div class="heading">
+              <img src="icons/png/005-profile.png">
+              Profile Summary
+            </div>
+            <div class="text" id="summary">
+            </div>
+          </div>
+          <div class="profile_element">
+            <div class="heading">
+              <img src="icons/png/001-certification.png">
+              Experience
+            </div>
+            <div class="text" id="experience">
+            </div>
+          </div>
+          <div class="profile_element">
+            <div class="heading">
+              <img src="icons/png/rupee.png" width="16px;">
+              Charges
+            </div>
+            <div class="text" id="charge">
+
+            </div>
+          </div>
+          <div class="profile_element">
+            <div class="heading">
+              <img src="icons/png/002-comment.png">
+              Reviews
+            </div>
+            <div class="text" id="reviews" style="overflow:scroll;height:100px">
+            </div>
+          </div>
+          <div class="profile_element">
+            <div class="heading">
+              <img src="icons/png/001-certification.png">
+              Expertise
+            </div>
+            <div class="text" id="expertise">
+            </div>
+          </div>
+          <div class="profile_element">
+            <div class="heading">
+            <i class="fas fa-map-marker"></i>
+              Location
+            </div>
+            <div class="text" id="location">
+            </div>
+          </div>
+          <div class="profile_element">
+            <div class="heading">
+              <img src="icons/png/004-translate.png">
+              Language(s) Spoken
+            </div>
+            <div class="text" id="language">
+            </div>
+          </div>
+        </div>
+        <br><br>
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <div class="btn  btn-lg btn-block btn-success" onclick='setCookie("user_phone_call",getCookie("phone_no")); setCookie("doctor_phone_call",getCookie("showprofile")); update_audio_call_details();'>Audio Call</div>
+            </div>
+            <div class="col-6">
+              <div class="btn btn-lg btn-block btn-warning" onclick='setCookie("user_phone_call",getCookie("phone_no")); setCookie("doctor_phone_call",getCookie("showprofile"); update_video_call_details();'>Video Call</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br><br>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-1.11.1.min.js" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="cordova.js" charset="utf-8"></script>
+    <script src="js/index.js" charset="utf-8"></script>
+    <script type="text/javascript">
+
+
+    function update_video_call_details(){
+        if(getCookie("phone_no") == ""){
+            alert("Please Sign Up First");
+            window.location="patient_login.html";
+        } else if(parseFloat(getCookie("wallet")) <= 100.0) {
+            alert("Minumum Wallet balance 100.0 required");
+            window.location="patient_wallet.html";
+        }
+        $.post(update_call_details_url,
+        {
+            "user_phone_call" : getCookie("user_phone_call"),
+            "doctor_phone_call" : getCookie("doctor_phone_call"),
+            "call_type" : "video"
+        },
+        function(data, status){
+            setCookie("call_id",data["id"]);
+            setCookie("call_type","video");
+            window.location='agora_user.html';
+        });
+    }
+
+    function update_audio_call_details(){
+        if(getCookie("phone_no") == ""){
+            alert("Please Sign Up First");
+            window.location="patient_login.html";
+        } else if(parseFloat(getCookie("wallet")) <= 100.0) {
+            alert("Minumum Wallet balance 100.0 required");
+            window.location="patient_wallet.html";
+        }
+        $.post(update_call_details_url,
+        {
+            "user_phone_call" : getCookie("user_phone_call"),
+            "doctor_phone_call" : getCookie("doctor_phone_call"),
+            "call_type" : "audio"
+        },
+        function(data, status){
+            setCookie("call_id",data["id"]);
+            setCookie("call_type","audio");
+            window.location='agora_user.html';
+        });
+    }
+
+
+    $.get(doctor_get_url,
+    {},
+    function(data, status){
+      let phone_no=getCookie("showprofile")
+      let indexFound=-1;
+      for(let i=0;i<data.length;i++)
+      {
+        if(data[i]["phone_no"]==phone_no)
+        {
+          indexFound=i;
+          break;
+        }
+      }
+      if(indexFound!=-1)
+      {
+        let charge=data[indexFound]["rate"]
+        let name=data[indexFound]["username"]
+        let rating=4.6
+        switch(indexFound){
+          case 1:{
+            rating=4.5;
+            break;
+            }
+          case 2:{  
+            rating=4.4;
+            break;
+          }
+          case 3:{
+            rating=4.7;
+            break;
+          }
+          case 4:{
+            rating=4.6;
+          }
+        }
+        $('#ratingchange').text(rating);
+        let profession=data[indexFound]["expertise"]
+        let experience=data[indexFound]["experience"]
+        let qualification=data[indexFound]["qualification"]
+        let phone_no=data[indexFound]["phone_no"]
+        let summary=data[indexFound]["summary"]
+        let language=data[indexFound]["language"]
+        let location=data[indexFound]["location"]
+        let tempreviews=data[indexFound]["doctor_feedback"]
+        let reviews="No Reviews Yet"
+        for(let i=0;i<tempreviews.length;i++)
+        {
+          print(tempreviews[i])
+          reviews+="\n\n";
+          if(i==0)
+          {
+            reviews=""
+          }
+          reviews+=tempreviews[i]["comments"]+"\n";
+
+          reviews+=" • "+tempreviews[i]["timestamp"].split('T')[0]
+        }
+        $('#name').text(name);
+        $('#charge').text(charge+"/session");
+        $('#expertise').text(profession);
+        $('#experience').text(experience);
+        $('#qualification').text(qualification);
+        $('#language').text(language);
+        $('#location').text(location);
+        $('#reviews').html(reviews).wrap("<pre/>")
+        $('#summary').text(summary);
+      }
+      else
+      {
+        console.log("hi")
+      }
+
+    });
+    document.addEventListener("backbutton", function(e){
+      window.location="dashboard.html";
+      setCookie("showprofile","");
+    }, false);
+
+    $.post(get_pic,{
+      phone_no:getCookie("showprofile")
+    },function(data,status){
+      console.log(data)
+      if(data["status"]!="Failed"&&data['pic']!=""){
+        $('#pic').attr("src",base_url+data["pic"])
+      }
+    })
+
+
+    </script>
+
+
+  </body>
+</html>

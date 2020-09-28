@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <script src="js/all.min.js" charset="utf-8"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="./css/mobile-login.css">
+
+    <title>Redocto</title>
+  </head>
+  <body>
+      <div class="cross-image">
+        <a href="./index.html"><i class='fas fa-times' style='font-size:18px;color:black'></i></a>
+      </div>
+      <div class="login-image">
+          <img src="img/login-img.PNG">
+      </div>
+
+      <div class="mobile-login-text">
+          Enter your mobile number and we will send you the otp
+      </div>
+      <div class="login-form">
+          <div><input class="black-border" id="phone_in" type="number" placeholder="Enter your number"></div>
+          <div><input class="black-border" id="password_in" name="password_in" id="password_in"   type="password" placeholder="Enter Password"></div>
+          <button type="button" class="btn btn-lg btn-block sign_in_button" style="background-color:#5EAF61">Sign in</button>
+          <br>
+          <div style="color:blue" onclick="forgot_password()">Forgot password ?</div>
+          <br>
+          <div>Not a member ?</div>
+          <button type="button" class="btn btn-lg btn-block"  onclick="window.location='patient_register.html'">Register</button>
+          <div style="margin-top:10px;color:blue;" id="skip">
+            Skip for Now
+          </div>
+
+        </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+
+    <script type="text/javascript">
+    $('#skip').on("click",function(){
+      window.location="dashboard.html"
+    })
+
+        function forgot_password(){
+            var temp_phone = prompt("Please enter your phone no", "");
+            $.post(user_send_otp_url,
+            {
+            "phone_no": temp_phone
+            },
+            function(data, status){
+                if(data["status"] != "Failed"){
+                    var temp_otp = prompt("Please enter the otp sent to phone no", "");
+
+                    $.post(user_get_otp_url,
+                    {
+                    "phone_no": temp_phone
+                    },
+                    function(data, status){
+                        if(data["status"] != "Failed"){
+                            var get_otp_1 = data["otp"];
+
+                            if(temp_otp == get_otp_1){
+
+                                var temp_pass = prompt("Please enter new password", "");
+
+                                var temp_pass2 = prompt("Confirm new password", "");
+
+                                if(temp_pass != temp_pass2){
+                                    alert("Password Don't Match");
+                                    return;
+                                }
+                                $.post(user_forgot_url,
+                                {
+                                "phone_no": temp_phone,
+                                "password": temp_pass,
+                                },
+                                function(data, status){
+                                    if(data["status"] != "Failed"){
+                                        alert("Password Change Successful");
+                                        window.location = 'login.html';
+
+                                    } else {
+                                        alert(data["response"]);
+                                    }
+                                });
+                            } else {
+                                alert("Wrong OTP");
+                            }
+
+                        } else {
+                            alert("Server Error");
+                        }
+                    });
+
+                } else {
+                    alert("Server Error");
+                }
+            });
+        }
+        $(document).ready(function() {
+            if(getCookie("phone_no") != ""){
+                window.location = 'profile.html';
+            }
+        });
+        $(".sign_in_button").click(function() {
+            var temp_phone = $("#phone_in").val();
+            var temp_pass = $("#password_in").val();
+            $.post(user_sign_in_url,
+            {
+            "phone_no": temp_phone,
+            "password": temp_pass
+            },
+            function(data, status){
+                // alert(JSON.stringify(data["user_doctor"]))
+                // alert(JSON.stringify(data["user_doctor"][0]["busy"]))
+                if(data["status"] != "Failed"){
+                    setCookie("phone_no", data["phone_no"], 30);
+                    setCookie("name", data["name"], 30);
+                    setCookie("email", data["email_id"], 30);
+                    setCookie("dob", data["dob"], 30);
+                    setCookie("profession", data["profession"], 30);
+                    setCookie("wallet", data["wallet"], 30);
+                    setCookie("address", data["address"], 30);
+                    setCookie("pic", data["pic"], 30);
+                    setCookie("admin", data["admin"], 30);
+                    setCookie("doctor", "false", 30);
+                    alert("Login successful");
+                    window.location="dashboard.html"
+                } else {
+                    alert(data["response"]);
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+      <script src="js/common.js" charset="utf-8"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script src="bootstrap.min.js" charset="utf-8"></script>
+  </body>
+</html>
